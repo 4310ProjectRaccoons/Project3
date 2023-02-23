@@ -20,9 +20,10 @@
 #include <string.h>
 #include <errno.h>
 #include <unistd.h>
+#include <sys/wait.h>
 #include "Wait.h"
 
-Wait::Wait(int argc)
+Wait::Wait(pid_t argc)
     : POSIXApplication(argc)
 {
     parser().setDescription("Stop executing for some time");
@@ -36,11 +37,10 @@ Wait::~Wait()
 Wait::Result Wait::exec()
 {
     int sec = 0;
-
     // Convert input to seconds
 
     // Wait now
-    if (waitpid(arguments(), nullptr, 0) != 0)
+    if (waitpid(atoi(arguments()), NULL, 0) != 0)
     {
         ERROR("failed to sleep: " << strerror(errno));
         return IOError;
