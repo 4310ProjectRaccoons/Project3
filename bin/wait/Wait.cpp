@@ -22,8 +22,8 @@
 #include <unistd.h>
 #include "Wait.h"
 
-Wait::Wait(int argc, char **argv)
-    : POSIXApplication(argc, argv)
+Wait::Wait(int argc)
+    : POSIXApplication(argc)
 {
     parser().setDescription("Stop executing for some time");
     parser().registerPositional("SECONDS", "Stop executing for the given number of seconds");

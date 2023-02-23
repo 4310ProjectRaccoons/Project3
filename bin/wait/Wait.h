@@ -15,8 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __BIN_SLEEP_SLEEP_H
-#define __BIN_SLEEP_SLEEP_H
+#ifndef __BIN_WAIT_WAIT_H
+#define __BIN_WAIT_WAIT_H
 
 #include <POSIXApplication.h>
 
@@ -38,7 +38,7 @@ class Wait : public POSIXApplication
      * @param argc Argument count
      * @param argv Argument values
      */
-    Wait(int argc, char **argv);
+    Wait(int argc);
 
     /**
      * Destructor
@@ -57,4 +57,4 @@ class Wait : public POSIXApplication
  * @}
  */
 
-#endif /* __BIN_SLEEP_SLEEP_H */
+#endif /* __BIN_WAIT_WAIT_H */

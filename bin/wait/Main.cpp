@@ -17,8 +17,8 @@
 
 #include "Wait.h"
 
-int main(int argc, char **argv)
+int main(int argc)
 {
-    Wait app(argc, argv);
+    Wait app(argc);
     return app.run();
 }
