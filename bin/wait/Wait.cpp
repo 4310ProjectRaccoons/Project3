@@ -36,12 +36,18 @@ Wait::~Wait()
 
 Wait::Result Wait::exec()
 {
+    int* status = 0;
 
     // Wait now
-    if (waitpid(atoi(arguments().get("SECONDS")), nullptr, 0) != 0)
+
+    if (waitpid(atoi(arguments().get("SECONDS")), status, 0) != atoi(arguments().get("SECONDS")))
+
     {
-        ERROR("failed to sleep: " << strerror(errno));
+
+        ERROR("failed to wait: " << strerror(errno));
+
         return IOError;
+
     }
 
     // Done
