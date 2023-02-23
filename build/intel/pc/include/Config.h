@@ -278,7 +278,7 @@
 #define OBJCOPY "objcopy"
 #define VERSION "1.0.3"
 #define VERSIONCODE 65539
-#define RELEASE "1.0.3-git(d2ad605)*"
+#define RELEASE "1.0.3-git(383f5b2)*"
 #define FREENOS 1
 #define COMPILER_VERSION "gcc (Ubuntu 9.4.0-1ubuntu1~20.04.1) 9.4.0"
 #define BUILDUSER "axewdraco"

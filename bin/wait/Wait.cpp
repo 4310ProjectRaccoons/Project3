@@ -23,8 +23,8 @@
 #include <sys/wait.h>
 #include "Wait.h"
 
-Wait::Wait(int argc)
-    : POSIXApplication(argc)
+Wait::Wait(int argc, char **argv)
+    : POSIXApplication(argc, argv)
 {
     parser().setDescription("Stop executing for some time");
     parser().registerPositional("SECONDS", "Stop executing for the given number of seconds");
@@ -38,7 +38,7 @@ Wait::Result Wait::exec()
 {
 
     // Wait now
-    if (waitpid(arguments(), NULL, 0) != 0)
+    if (waitpid(atoi(arguments().get("SECONDS")), nullptr, 0) != 0)
     {
         ERROR("failed to sleep: " << strerror(errno));
         return IOError;
