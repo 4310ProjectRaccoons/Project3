@@ -5,6 +5,6 @@
     "\\bin\\sleep",
     "\\bin\\wait"
   ],
-  "SelectedNode": "\\bin\\wait\\Wait.cpp",
+  "SelectedNode": "\\bin\\sleep\\Sleep.cpp",
   "PreviewInSolutionExplorer": false
 }
