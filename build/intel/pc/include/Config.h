@@ -241,7 +241,7 @@
 #define BOOT "${ROOTFS}/boot"
 #define QEMU "qemu-system-i386"
 #define QEMUCMD "${QEMU} ${QEMUFLAGS}"
-#define QEMUFLAGS "-smp 4 -m 256 -enable-kvm -M pc,kernel_irqchip=off"
+#define QEMUFLAGS "-smp 4 -m 256"
 #define WSL_DISTRO_NAME "Ubuntu-20.04"
 #define NAME "DESKTOP-ANQFQS2"
 #define LOGNAME "axewdraco"
@@ -276,10 +276,9 @@
 #define LINKEXTRA ""
 #define STRIP "strip"
 #define OBJCOPY "objcopy"
-#define KVMFLAGS "-enable-kvm -M pc,kernel_irqchip=off"
 #define VERSION "1.0.3"
 #define VERSIONCODE 65539
-#define RELEASE "1.0.3-git(f431186)"
+#define RELEASE "1.0.3-git(d2ad605)*"
 #define FREENOS 1
 #define COMPILER_VERSION "gcc (Ubuntu 9.4.0-1ubuntu1~20.04.1) 9.4.0"
 #define BUILDUSER "axewdraco"
