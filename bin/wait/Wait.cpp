@@ -40,8 +40,7 @@ Wait::Result Wait::exec()
 
     // Wait now
 
-    if (waitpid(atoi(arguments().get("SECONDS")), status, 0) != atoi(arguments().get("SECONDS")))
-
+    if (static_cast<signed>(waitpid(atoi(arguments().get("SECONDS")), status, 0)) < 0)
     {
 
         ERROR("failed to wait: " << strerror(errno));
