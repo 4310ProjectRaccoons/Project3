@@ -38,7 +38,7 @@ class Wait : public POSIXApplication
      * @param argc Argument count
      * @param argv Argument values
      */
-    Wait(int argc);
+    Wait(pid_t argc);
 
     /**
      * Destructor
