@@ -37,10 +37,10 @@ Wait::~Wait()
 Wait::Result Wait::exec()
 {
     int* status = 0;
-
+    int statusCheck = 5;
     // Wait now
 
-    if (static_cast<signed>(waitpid(atoi(arguments().get("SECONDS")), status, 0)) < 0)
+    if (static_cast<signed>(waitpid(atoi(arguments().get("SECONDS")), &statusCheck, 0)) < 0)
     {
 
         ERROR("failed to wait: " << strerror(errno));
@@ -50,5 +50,6 @@ Wait::Result Wait::exec()
     }
 
     // Done
+
     return Success;
 }
