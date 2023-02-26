@@ -27,7 +27,7 @@ Wait::Wait(int argc, char **argv)
     : POSIXApplication(argc, argv)
 {
     parser().setDescription("Suspends the calling process until a child process ends or is stopped.");
-    parser().registerPositional("PROCESS_ID", "Wait for the specified child process");
+    parser().registerPositional("PID", "Wait for the specified child process");
 }
 
 Wait::~Wait()
@@ -40,7 +40,7 @@ Wait::Result Wait::exec()
     int statusCheck = 5;
 
     // Wait now
-    if (static_cast<signed>(waitpid(atoi(arguments().get("SECONDS")), &statusCheck, 0)) < 0)
+    if (static_cast<signed>(waitpid(atoi(arguments().get("PID")), &statusCheck, 0)) < 0)
     {
         ERROR("failed to wait: " << strerror(errno));
         return IOError;
