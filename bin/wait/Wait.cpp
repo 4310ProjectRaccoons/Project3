@@ -26,8 +26,8 @@
 Wait::Wait(int argc, char **argv)
     : POSIXApplication(argc, argv)
 {
-    parser().setDescription("Stop executing for some time");
-    parser().registerPositional("SECONDS", "Stop executing for the given number of seconds");
+    parser().setDescription("Suspends the calling process until a child process ends or is stopped.");
+    parser().registerPositional("PROCESS_ID", "Wait for the specified child process");
 }
 
 Wait::~Wait()
@@ -36,20 +36,16 @@ Wait::~Wait()
 
 Wait::Result Wait::exec()
 {
-    int* status = 0;
+    // Set statusCheck value to 5 to check if a regular variable's address can be passed in and still be successful
     int statusCheck = 5;
-    // Wait now
 
+    // Wait now
     if (static_cast<signed>(waitpid(atoi(arguments().get("SECONDS")), &statusCheck, 0)) < 0)
     {
-
         ERROR("failed to wait: " << strerror(errno));
-
         return IOError;
-
     }
 
     // Done
-
     return Success;
 }
