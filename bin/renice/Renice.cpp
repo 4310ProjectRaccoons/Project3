@@ -22,7 +22,8 @@
 #include <ProcessClient.h>
 #include "Renice.h"
 
-Renice::Renice(int argc, char** argv)
+//renice -n 2 17
+Renice::Renice(int argc, char** argv, int priority, int inputPID)
     : POSIXApplication(argc, argv)
 {
     parser().setDescription("Output system process list");

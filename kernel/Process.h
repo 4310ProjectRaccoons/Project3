@@ -81,7 +81,7 @@ class Process
      * @param privileged If true, the process has unlimited access to hardware.
      * @param map Memory map to use
      */
-    Process(ProcessID id, Address entry, bool privileged, const MemoryMap &map);
+    Process(ProcessID id, Address entry, bool privileged, const MemoryMap &map, int& prio);
 
     /**
      * Destructor function.
@@ -105,6 +105,11 @@ class Process
     /**
      * Get Wait ID.
      */
+
+    ProcessID getPriority() const;
+
+    ProcessID setPriority(const int& prio);
+
     ProcessID getWait() const;
 
     /**
