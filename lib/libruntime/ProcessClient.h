@@ -85,6 +85,13 @@ class ProcessClient
      */
     ProcessID getParentID() const;
 
+     /**
+     * Get process priority level
+     *
+     * @return Process Priority Level
+     */
+    Process::Priority getProcessPriority() const;
+
     /**
      * Get process information by its ID.
      *
@@ -128,6 +135,9 @@ class ProcessClient
 
     /** Our parent process identifier */
     static const ProcessID m_parent;
+
+    /** Our process priority level */
+    static Process::Priority m_priority;
 };
 
 /**
