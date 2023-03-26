@@ -70,12 +70,12 @@ ProcessID Process::getParent() const
     return m_parent;
 }
 
-ProcessID Process::getPriority() const
+Process::Priority Process::getPriority() const
 {
     return m_priority;
 }
 
-ProcessID Process::setPriority(const Priority prio)
+Process::Priority Process::setPriority(const Priority prio)
 {
     m_priority = prio;
 }

@@ -26,7 +26,11 @@ Scheduler::Scheduler()
 
 Size Scheduler::count() const
 {
-    return m_queue.count();
+    return m_queue1.count() +
+           m_queue2.count() +
+           m_queue3.count() +
+           m_queue4.count() +
+           m_queue5.count();        
 }
 
 Scheduler::Result Scheduler::enqueue(Process *proc, bool ignoreState)
@@ -36,8 +40,20 @@ Scheduler::Result Scheduler::enqueue(Process *proc, bool ignoreState)
         ERROR("process ID " << proc->getID() << " not in Ready state");
         return InvalidArgument;
     }
-
-    m_queue.push(proc);
+    
+    switch(proc->getPriority()) 
+    {
+        case 1: 
+            m_queue1.push(proc);
+        case 2: 
+            m_queue2.push(proc);
+        case 3: 
+            m_queue3.push(proc);
+        case 4: 
+            m_queue4.push(proc);
+        case 5:
+            m_queue5.push(proc);        
+    }
     return Success;
 }
 
@@ -49,18 +65,70 @@ Scheduler::Result Scheduler::dequeue(Process *proc, bool ignoreState)
         return InvalidArgument;
     }
 
-    Size count = m_queue.count();
-
-    // Traverse the Queue to remove the Process
-    for (Size i = 0; i < count; i++)
+    Size count;
+    switch(proc->getPriority()) 
     {
-        Process *p = m_queue.pop();
+        case 1: 
+            count = m_queue1.count();
+            // Traverse Queue 1 to remove the Process
+            for (Size i = 0; i < count; i++)
+            {
+                Process *p = m_queue1.pop();
 
-        if (p == proc)
-            return Success;
-        else
-            m_queue.push(p);
-    }
+                if (p == proc)
+                    return Success;
+                else
+                    m_queue1.push(p);
+            }
+        case 2: 
+            count = m_queue2.count();
+            // Traverse Queue 2 to remove the Process
+            for (Size i = 0; i < count; i++)
+            {
+                Process *p = m_queue2.pop();
+
+                if (p == proc)
+                    return Success;
+                else
+                    m_queue2.push(p);
+            }
+        case 3: 
+            count = m_queue3.count();
+            // Traverse Queue 3 to remove the Process
+            for (Size i = 0; i < count; i++)
+            {
+                Process *p = m_queue3.pop();
+
+                if (p == proc)
+                    return Success;
+                else
+                    m_queue3.push(p);
+            }
+        case 4: 
+            count = m_queue4.count();
+            // Traverse Queue 4 to remove the Process
+            for (Size i = 0; i < count; i++)
+            {
+                Process *p = m_queue4.pop();
+
+                if (p == proc)
+                    return Success;
+                else
+                    m_queue4.push(p);
+            }
+        case 5: 
+            count = m_queue5.count();  
+            // Traverse Queue 5 to remove the Process
+            for (Size i = 0; i < count; i++)
+            {
+                Process *p = m_queue5.pop();
+
+                if (p == proc)
+                    return Success;
+                else
+                    m_queue5.push(p);
+            }   
+    }   
 
     FATAL("process ID " << proc->getID() << " is not in the schedule");
     return InvalidArgument;
@@ -68,10 +136,38 @@ Scheduler::Result Scheduler::dequeue(Process *proc, bool ignoreState)
 
 Process * Scheduler::select()
 {
-    if (m_queue.count() > 0)
+    if (m_queue5.count() > 0)
     {
-        Process *p = m_queue.pop();
-        m_queue.push(p);
+        Process *p = m_queue5.pop();
+        m_queue5.push(p);
+
+        return p;
+    } 
+    else if (m_queue4.count() > 0)
+    {
+        Process *p = m_queue4.pop();
+        m_queue4.push(p);
+
+        return p;
+    } 
+    else if (m_queue3.count() > 0)
+    {
+        Process *p = m_queue3.pop();
+        m_queue3.push(p);
+
+        return p;
+    } 
+    else if (m_queue2.count() > 0)
+    {
+        Process *p = m_queue2.pop();
+        m_queue2.push(p);
+
+        return p;
+    } 
+    else
+    {
+        Process *p = m_queue1.pop();
+        m_queue1.push(p);
 
         return p;
     }
