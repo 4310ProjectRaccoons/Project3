@@ -71,6 +71,15 @@ class Process
         Stopped
     };
 
+    enum Priority
+    {
+      One = 1, 
+      Two = 2, 
+      Three = 3, 
+      Four = 4, 
+      Five = 5
+    };
+
   public:
 
     /**
@@ -81,7 +90,7 @@ class Process
      * @param privileged If true, the process has unlimited access to hardware.
      * @param map Memory map to use
      */
-    Process(ProcessID id, Address entry, bool privileged, const MemoryMap &map, int& prio);
+    Process(ProcessID id, Address entry, bool privileged, const MemoryMap &map);
 
     /**
      * Destructor function.
@@ -108,7 +117,7 @@ class Process
 
     ProcessID getPriority() const;
 
-    ProcessID setPriority(const int& prio);
+    ProcessID setPriority(const Priority prio);
 
     ProcessID getWait() const;
 
@@ -256,6 +265,9 @@ class Process
 
     /** Current process status. */
     State m_state;
+
+    /** Current priority queue. */
+    Priority m_priority;
 
     /** Waits for exit of this Process. */
     ProcessID m_waitId;
