@@ -38,7 +38,7 @@ class Renice : public POSIXApplication
      * @param argc Argument count
      * @param argv Argument values
      */
-    Renice(int argc, char **argv);
+    Renice(int argc, char** argv);
 
     /**
      * Execute the application.

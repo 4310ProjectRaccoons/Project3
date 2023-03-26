@@ -18,46 +18,74 @@
 #include <Types.h>
 #include <Macros.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <errno.h>
 #include <unistd.h>
 #include <ProcessClient.h>
+#include <Process.h>
 #include "Renice.h"
 
 //renice -n 2 17
-Renice::Renice(int argc, char** argv, int priority, int inputPID)
+Renice::Renice(int argc, char** argv)
     : POSIXApplication(argc, argv)
 {
-    parser().setDescription("Output system process list");
+    parser().setDescription("Alter priority of running processes");
+    parser().registerFlag('n',"PRIOFLAG", "Change the priority of the designated process to the specified priority level if set");
+    parser().registerPositional("PRIORITY", "Specified priority level");
+    parser().registerPositional("PID", "Change the priority of the specified process");
 }
 
 Renice::Result Renice::exec()
 {
-    const ProcessClient process;
-    String out;
+    const ProcessClient process;    
+    // New priority level to be applied to the specified process
+    int priority = 0;
 
-    // Print header
-    out << "ID  PARENT  USER GROUP STATUS     CMD\r\n";
+    // Check if the -n flag is inputted
+    if (!(arguments().get("PRIOFLAG")))
+    {
+        ERROR("missing flag for the priority change to be conducted");
+        return InvalidArgument;
+    }
+
+    // Check if the priority level is inputted
+    if ((priority = atoi(arguments().get("PRIORITY"))) < 1
+            || (priority = atoi(arguments().get("PRIORITY"))) > 5)
+    {
+        ERROR("invalid priority level `" << arguments().get("PRIORITY") << "'");
+        return InvalidArgument;
+    }
 
     // Loop processes
     for (ProcessID pid = 0; pid < ProcessClient::MaximumProcesses; pid++)
     {
-        ProcessClient::Info info;s
+        ProcessClient::Info info;
 
-        const ProcessClient::Result result = process.processInfo(pid, info);
-        if (result == ProcessClient::Success)
+        ProcessClient::Result result = process.processInfo(pid, info);
+        if (result == ProcessClient::Success 
+            && atoi(arguments().get("PID")) == pid)
         {
-            DEBUG("PID " << pid << " state = " << *info.textState);
-
-            // Output a line
-            char line[128];
-            snprintf(line, sizeof(line),
-                "%3d %7d %4d %5d %10s %32s\r\n",
-                pid, info.kernelState.parent,
-                0, 0, *info.textState, *info.command);
-            out << line;
+            switch(priority)
+            {
+                case 1:
+                    info.kernelState.priority = Process::One;
+                    break;
+                case 2:
+                    info.kernelState.priority = Process::Two;
+                    break;
+                case 3:
+                    info.kernelState.priority = Process::Three;
+                    break;
+                case 4:
+                    info.kernelState.priority = Process::Four;
+                    break;
+                case 5:
+                    info.kernelState.priority = Process::Five;
+                    break;
+            }
+            break;
         }
     }
 
-    // Output the table
-    write(1, *out, out.length());
     return Success;
 }
