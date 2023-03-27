@@ -72,7 +72,14 @@ Renice::Result Renice::exec()
                     break;
                 case 2:
                     info.kernelState.priority = static_cast <Priority>(2);
-                    printf(static_cast<String>(info.kernelState.priority));
+                    // Output a line
+                    char line[128];
+                    //info.kernelState.priority = 2;
+                    snprintf(line, sizeof(line),
+                        "%3d %9d %7d %4d %5d %10s %32s\r\n",
+                        pid, info.kernelState.priority, info.kernelState.parent,
+                        0, 0, *info.textState, *info.command);
+                    out << line;
                     break;
                 case 3:
                     info.kernelState.priority = 3;
