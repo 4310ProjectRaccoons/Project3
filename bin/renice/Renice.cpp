@@ -65,22 +65,22 @@ Renice::Result Renice::exec()
         if (result == ProcessClient::Success 
             && atoi(arguments().get("PID")) == static_cast<int>(pid))
         {
-            switch(priority)
+            switch(static_cast<int>(priority))
             {
                 case 1:
-                    //info.kernelState.setPriority(1);
+                    info.kernelState.priority = 1;
                     break;
                 case 2:
-                    //info.kernelState.setPriority(2);
+                    info.kernelState.priority = 2;
                     break;
                 case 3:
-                    //info.kernelState.setPriority(3);
+                    info.kernelState.priority = 3;
                     break;
                 case 4:
-                    //info.kernelState.setPriority(4);
+                    info.kernelState.priority = 4;
                     break;
                 case 5:
-                    //info.kernelState.setPriority(5);
+                    info.kernelState.priority = 5;
                     break;
             }
             break;

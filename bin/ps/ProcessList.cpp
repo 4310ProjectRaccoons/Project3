@@ -48,7 +48,7 @@ ProcessList::Result ProcessList::exec()
 
             // Output a line
             char line[128];
-            info.kernelState.priority = 2;
+            //info.kernelState.priority = 2;
             snprintf(line, sizeof(line),
                     "%3d %9d %7d %4d %5d %10s %32s\r\n",
                      pid, info.kernelState.priority, info.kernelState.parent,
