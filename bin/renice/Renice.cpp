@@ -55,7 +55,9 @@ Renice::Result Renice::exec()
         ERROR("invalid priority level `" << arguments().get("PRIORITY") << "'");
         return InvalidArgument;
     }
-
+    char line[128];
+    //info.kernelState.priority = 2;
+    String out;
     // Loop processes
     for (ProcessID pid = 0; pid < ProcessClient::MaximumProcesses; pid++)
     {
@@ -73,14 +75,13 @@ Renice::Result Renice::exec()
                 case 2:
                     info.kernelState.priority = static_cast <Priority>(2);
                     // Output a line
-                    char line[128];
-                    //info.kernelState.priority = 2;
-                    String out;
+                 
                     snprintf(line, sizeof(line),
                         "%3d %9d %7d %4d %5d %10s %32s\r\n",
                         pid, info.kernelState.priority, info.kernelState.parent,
                         0, 0, *info.textState, *info.command);
                     out << line;
+                    write(1, *out, out.length());
                     break;
                 case 3:
                     info.kernelState.priority = 3;
