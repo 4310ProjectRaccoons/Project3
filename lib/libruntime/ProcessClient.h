@@ -138,7 +138,7 @@ class ProcessClient
     static const ProcessID m_parent;
 
     /** Our process priority level */
-    static Process::Priority m_priority;
+    static Priority m_priority;
 };
 
 /**
