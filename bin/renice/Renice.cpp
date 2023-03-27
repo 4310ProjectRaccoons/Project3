@@ -72,7 +72,7 @@ Renice::Result Renice::exec()
                     break;
                 case 2:
                     info.kernelState.priority = static_cast < unsigned int>(2);
-                    cout << "Hello" << std::endl;
+                    std::cout << "Hello" << std::endl;
                     break;
                 case 3:
                     info.kernelState.priority = 3;
