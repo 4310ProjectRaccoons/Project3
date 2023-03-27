@@ -41,18 +41,20 @@ ProcessList::Result ProcessList::exec()
     {
         ProcessClient::Info info;
 
-        const ProcessClient::Result result = process.processInfo(pid, info);
+        ProcessClient::Result result = process.processInfo(pid, info);
         if (result == ProcessClient::Success)
         {
             DEBUG("PID " << pid << " state = " << *info.textState);
 
             // Output a line
             char line[128];
+            info.kernelState.priority = 2;
             snprintf(line, sizeof(line),
                     "%3d %9d %7d %4d %5d %10s %32s\r\n",
                      pid, info.kernelState.priority, info.kernelState.parent,
                      0, 0, *info.textState, *info.command);
             out << line;
+
         }
     }
 
