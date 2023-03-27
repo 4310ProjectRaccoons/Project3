@@ -23,6 +23,7 @@
 #include <unistd.h>
 #include <ProcessClient.h>
 #include <Process.h>
+#include <FreeNOS/Kernel.h>
 #include "ProcessManager.h"
 #include "Renice.h"
 
