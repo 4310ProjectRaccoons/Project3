@@ -78,7 +78,7 @@ Renice::Result Renice::exec()
                     break;
                 case 2:
                     //info.kernelState.priority = static_cast <Priority>(2);
-                    proc->setPriority(static_cast<unsigned int>(2));
+                    proc->setPriority(static_cast<Priority>(2));
                     // Output a line
                  
                     snprintf(line, sizeof(line),
