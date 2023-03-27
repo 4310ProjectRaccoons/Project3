@@ -68,19 +68,19 @@ Renice::Result Renice::exec()
             switch(priority)
             {
                 case 1:
-                    info.kernelState.priority = 1;
+                    info.kernelState.setPriority(1);
                     break;
                 case 2:
-                    info.kernelState.priority = 2;
+                    info.kernelState.setPriority(2);
                     break;
                 case 3:
-                    info.kernelState.priority = 3;
+                    info.kernelState.setPriority(3);
                     break;
                 case 4:
-                    info.kernelState.priority = 4;
+                    info.kernelState.setPriority(4);
                     break;
                 case 5:
-                    info.kernelState.priority = 5;
+                    info.kernelState.setPriority(5);
                     break;
             }
             break;
