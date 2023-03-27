@@ -90,7 +90,8 @@ class ProcessClient
      *
      * @return Process Priority Level
      */
-    Process::Priority getProcessPriority() const;
+
+    Priority getProcessPriority() const;
 
     /**
      * Get process information by its ID.

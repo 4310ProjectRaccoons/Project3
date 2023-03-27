@@ -36,7 +36,7 @@ Process::Process(ProcessID id, Address entry, bool privileged, const MemoryMap &
     m_privileged    = privileged;
     m_memoryContext = ZERO;
     m_kernelChannel = ZERO;
-    m_priority = Three;
+    m_priority = 3;
     MemoryBlock::set(&m_sleepTimer, 0, sizeof(m_sleepTimer));
 }
 
@@ -70,12 +70,12 @@ ProcessID Process::getParent() const
     return m_parent;
 }
 
-Process::Priority Process::getPriority() const
+Priority Process::getPriority() const
 {
     return m_priority;
 }
 
-Process::Priority Process::setPriority(const Priority prio)
+Priority Process::setPriority(const Priority prio)
 {
     m_priority = prio;
 }

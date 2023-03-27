@@ -70,7 +70,7 @@ class Process
         Waiting,
         Stopped
     };
-
+    /*
     enum Priority
     {
       One = 1, 
@@ -79,7 +79,7 @@ class Process
       Four = 4, 
       Five = 5
     };
-
+    */
   public:
 
     /**
