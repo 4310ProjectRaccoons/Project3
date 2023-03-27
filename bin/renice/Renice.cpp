@@ -63,7 +63,7 @@ Renice::Result Renice::exec()
 
         ProcessClient::Result result = process.processInfo(pid, info);
         if (result == ProcessClient::Success 
-            && atoi(arguments().get("PID")) == pid)
+            && atoi(arguments().get("PID")) == static_cast<int>(pid))
         {
             switch(priority)
             {
