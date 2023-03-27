@@ -63,8 +63,8 @@ Renice::Result Renice::exec()
     // Loop processes
     for (ProcessID pid = 0; pid < ProcessClient::MaximumProcesses; pid++)
     {
-        ProcessManager* procs = Kernel::instance()->getProcessManager();
-        Process* proc = procs->get(pid);
+        //ProcessManager* procs = Kernel::instance()->getProcessManager();
+        //Process* proc = procs->get(pid);
         ProcessClient::Info info;
 
         ProcessClient::Result result = process.processInfo(pid, info);
@@ -80,7 +80,7 @@ Renice::Result Renice::exec()
                     //info.kernelState.priority = static_cast <Priority>(2);
                     proc->setPriority(static_cast<Priority>(2));
                     // Output a line
-                 
+                    m_priority = 2;
                     snprintf(line, sizeof(line),
                         "%3d %9d %7d %4d %5d %10s %32s\r\n",
                         pid, info.kernelState.priority, info.kernelState.parent,
