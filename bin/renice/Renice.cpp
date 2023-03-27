@@ -24,7 +24,6 @@
 #include <ProcessClient.h>
 #include <Process.h>
 #include "Renice.h"
-#include <iostream>
 
 //renice -n 2 17
 Renice::Renice(int argc, char** argv)
@@ -73,7 +72,7 @@ Renice::Result Renice::exec()
                     break;
                 case 2:
                     info.kernelState.priority = static_cast < unsigned int>(2);
-                    std::cout << "Hello";
+                    printf("Hello");
                     break;
                 case 3:
                     info.kernelState.priority = 3;
