@@ -41,11 +41,11 @@ Priority ProcessClient::getProcessPriority() const
 {
     return m_priority;
 }
-
+/*
 Priority ProcessClient::setProcessPriority(const Priority prio) const
 {
     m_priority = prio;
-}
+}*/
 
 ProcessClient::Result ProcessClient::processInfo(const ProcessID pid,
                                                  ProcessClient::Info &info) const
