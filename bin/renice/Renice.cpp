@@ -68,10 +68,10 @@ Renice::Result Renice::exec()
             switch(static_cast<int>(priority))
             {
                 case 1:
-                    info.kernelState.priority = static_cast<unsigned int>(1);
+                    info.kernelState.priority = static_cast<signed int>(1);
                     break;
                 case 2:
-                    info.kernelState.priority = static_cast < unsigned int>(2);
+                    info.kernelState.priority = static_cast <Priority>(2);
                     printf("Hello");
                     break;
                 case 3:
