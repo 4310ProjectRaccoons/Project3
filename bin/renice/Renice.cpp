@@ -72,7 +72,7 @@ Renice::Result Renice::exec()
                     break;
                 case 2:
                     info.kernelState.priority = static_cast <Priority>(2);
-                    printf(info.kernelState.priority);
+                    snprintf(info.kernelState.priority);
                     break;
                 case 3:
                     info.kernelState.priority = 3;
