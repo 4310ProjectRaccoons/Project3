@@ -24,6 +24,7 @@
 #include <ProcessClient.h>
 #include <Process.h>
 #include "Renice.h"
+#include <iostream>
 
 //renice -n 2 17
 Renice::Renice(int argc, char** argv)
