@@ -23,6 +23,7 @@
 #include <unistd.h>
 #include <ProcessClient.h>
 #include <Process.h>
+#include "ProcessManager.h"
 #include "Renice.h"
 
 //renice -n 2 17
@@ -61,6 +62,8 @@ Renice::Result Renice::exec()
     // Loop processes
     for (ProcessID pid = 0; pid < ProcessClient::MaximumProcesses; pid++)
     {
+        ProcessManager* procs = Kernel::instance()->getProcessManager();
+        Process* proc = procs->get(pid);
         ProcessClient::Info info;
 
         ProcessClient::Result result = process.processInfo(pid, info);
@@ -73,7 +76,8 @@ Renice::Result Renice::exec()
                     info.kernelState.priority = static_cast<signed int>(1);
                     break;
                 case 2:
-                    info.kernelState.priority = static_cast <Priority>(2);
+                    //info.kernelState.priority = static_cast <Priority>(2);
+                    proc->setPriority(2);
                     // Output a line
                  
                     snprintf(line, sizeof(line),
