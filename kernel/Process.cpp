@@ -75,7 +75,7 @@ Process::Priority Process::getPriority() const
     return m_priority;
 }
 
-Process::Priority Process::setPriority(const Priority prio)
+Process::Priority Process::setPriority(const Process::Priority prio)
 {
     m_priority = prio;
 }

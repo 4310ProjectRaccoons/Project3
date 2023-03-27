@@ -9,6 +9,10 @@
         "type_traits": "cpp",
         "unordered_map": "cpp",
         "memory": "cpp",
-        "functional": "cpp"
+        "functional": "cpp",
+        "__hash_table": "cpp",
+        "__locale": "cpp",
+        "iterator": "cpp",
+        "string": "cpp"
     }
 }

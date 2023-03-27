@@ -111,14 +111,23 @@ class Process
      */
     ProcessID getParent() const;
 
+    
+    /**
+     * Retrieve our Priority level.
+     *
+     * @return Process Priority of our process.
+     */
+    Process::Priority getPriority() const;
+
+    /**
+     * Set our Priority level.
+     */
+    Priority setPriority(const Priority prio);
+  
+
     /**
      * Get Wait ID.
      */
-
-    Priority getPriority() const;
-
-    Priority setPriority(const Priority prio);
-
     ProcessID getWait() const;
 
     /**
