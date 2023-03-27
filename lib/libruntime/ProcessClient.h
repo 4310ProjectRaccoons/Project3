@@ -93,6 +93,8 @@ class ProcessClient
 
     Priority getProcessPriority() const;
 
+    Priority setProcessPriority() const;
+
     /**
      * Get process information by its ID.
      *
