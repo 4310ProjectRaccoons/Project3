@@ -24,7 +24,7 @@ const ProcessID ProcessClient::m_pid = ProcessCtl(SELF, GetPID, 0);
 
 const ProcessID ProcessClient::m_parent = ProcessCtl(SELF, GetParent, 0);
 
-Process::Priority ProcessClient::m_priority = ProcessCtl(SELF, GetPriority, 0);
+Priority ProcessClient::m_priority = ProcessCtl(SELF, GetPriority, 0);
 
 ProcessID ProcessClient::getProcessID() const
 {
@@ -36,7 +36,7 @@ ProcessID ProcessClient::getParentID() const
     return m_parent;
 }
 
-Process::Priority ProcessClient::getProcessPriority() const
+Priority ProcessClient::getProcessPriority() const
 {
     return m_priority;
 }
