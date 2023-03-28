@@ -41,18 +41,23 @@ Scheduler::Result Scheduler::enqueue(Process *proc, bool ignoreState)
         return InvalidArgument;
     }
     
-    switch(proc->getPriority()) 
+    switch((int)proc->getPriority()) 
     {
         case 1: 
             m_queue1.push(proc);
+            break;
         case 2: 
             m_queue2.push(proc);
+            break;
         case 3: 
             m_queue3.push(proc);
+            break;
         case 4: 
             m_queue4.push(proc);
+            break;
         case 5:
-            m_queue5.push(proc);        
+            m_queue5.push(proc);
+            break;
     }
     return Success;
 }
@@ -66,7 +71,7 @@ Scheduler::Result Scheduler::dequeue(Process *proc, bool ignoreState)
     }
 
     Size count;
-    switch(proc->getPriority()) 
+    switch((int)proc->getPriority()) 
     {
         case 1: 
             count = m_queue1.count();
@@ -80,6 +85,7 @@ Scheduler::Result Scheduler::dequeue(Process *proc, bool ignoreState)
                 else
                     m_queue1.push(p);
             }
+            break;
         case 2: 
             count = m_queue2.count();
             // Traverse Queue 2 to remove the Process
@@ -92,6 +98,7 @@ Scheduler::Result Scheduler::dequeue(Process *proc, bool ignoreState)
                 else
                     m_queue2.push(p);
             }
+            break;
         case 3: 
             count = m_queue3.count();
             // Traverse Queue 3 to remove the Process
@@ -104,6 +111,7 @@ Scheduler::Result Scheduler::dequeue(Process *proc, bool ignoreState)
                 else
                     m_queue3.push(p);
             }
+            break;
         case 4: 
             count = m_queue4.count();
             // Traverse Queue 4 to remove the Process
@@ -116,6 +124,7 @@ Scheduler::Result Scheduler::dequeue(Process *proc, bool ignoreState)
                 else
                     m_queue4.push(p);
             }
+            break;
         case 5: 
             count = m_queue5.count();  
             // Traverse Queue 5 to remove the Process
@@ -127,7 +136,8 @@ Scheduler::Result Scheduler::dequeue(Process *proc, bool ignoreState)
                     return Success;
                 else
                     m_queue5.push(p);
-            }   
+            }
+            break;
     }   
 
     FATAL("process ID " << proc->getID() << " is not in the schedule");
@@ -164,7 +174,7 @@ Process * Scheduler::select()
 
         return p;
     } 
-    else
+    else if (m_queue1.count() > 0)
     {
         Process *p = m_queue1.pop();
         m_queue1.push(p);

@@ -139,6 +139,8 @@ typedef unsigned short GroupID;
 /** Process Identification Number. */
 typedef u32 ProcessID;
 
+typedef u32 Priority;
+
 /**
  * Describes a device ID number.
  */

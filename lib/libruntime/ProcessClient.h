@@ -90,7 +90,15 @@ class ProcessClient
      *
      * @return Process Priority Level
      */
-    Process::Priority getProcessPriority() const;
+    Priority getPriority() const;
+
+    /**
+     * Get process information by its ID.
+     *
+     * @param pid Process identifier of the process.
+     * @param newPriority New priotity for the process.
+     */
+    void setPriority(ProcessID pid, int newPriority);
 
     /**
      * Get process information by its ID.
@@ -137,7 +145,7 @@ class ProcessClient
     static const ProcessID m_parent;
 
     /** Our process priority level */
-    static Process::Priority m_priority;
+    static Priority m_priority;
 };
 
 /**

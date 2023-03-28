@@ -36,7 +36,7 @@ Process::Process(ProcessID id, Address entry, bool privileged, const MemoryMap &
     m_privileged    = privileged;
     m_memoryContext = ZERO;
     m_kernelChannel = ZERO;
-    m_priority = Three;
+    m_priority = 3;
     MemoryBlock::set(&m_sleepTimer, 0, sizeof(m_sleepTimer));
 }
 
@@ -70,14 +70,21 @@ ProcessID Process::getParent() const
     return m_parent;
 }
 
-Process::Priority Process::getPriority() const
+Priority Process::getPriority() const
 {
     return m_priority;
 }
 
-Process::Priority Process::setPriority(const Process::Priority prio)
+Process::Result Process::setPriority(int newPriority)
 {
-    m_priority = prio;
+    if (newPriority < 1 || newPriority > 5)
+    {
+        ERROR(newPriority << " is not a valid priority level.\n");
+        return InvalidArgument;
+    }
+
+    m_priority = (Priority) newPriority;
+    return Success;    
 }
 
 ProcessID Process::getWait() const

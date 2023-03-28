@@ -23,69 +23,53 @@
 #include <unistd.h>
 #include <ProcessClient.h>
 #include <Process.h>
+#include <FreeNOS/Kernel.h>
+#include "ProcessManager.h"
+#include <sys/renice.h>
 #include "Renice.h"
 
 //renice -n 2 17
 Renice::Renice(int argc, char** argv)
     : POSIXApplication(argc, argv)
 {
-    parser().setDescription("Alter priority of running processes");
-    parser().registerFlag('n',"PRIOFLAG", "Change the priority of the designated process to the specified priority level if set");
+    parser().setDescription("Alter priority of running processes");    
     parser().registerPositional("PRIORITY", "Specified priority level");
     parser().registerPositional("PID", "Change the priority of the specified process");
+    parser().registerFlag('n',"prioflag", "Change the priority of the designated process to the specified priority level if set");
 }
 
 Renice::Result Renice::exec()
 {
-    const ProcessClient process;    
+    ProcessClient process;    
+
     // New priority level to be applied to the specified process
-    int priority = 0;
+    int newPriority = atoi(arguments().get("PRIORITY"));
+    int pid = atoi(arguments().get("PID"));
+    ProcessClient::Info info;
+    const ProcessClient::Result result = process.processInfo(pid, info);
 
     // Check if the -n flag is inputted
-    if (!(arguments().get("PRIOFLAG")))
+    if (!(arguments().get("prioflag")))
     {
         ERROR("missing flag for the priority change to be conducted");
         return InvalidArgument;
     }
 
     // Check if the priority level is inputted
-    if ((priority = atoi(arguments().get("PRIORITY"))) < 1
-            || (priority = atoi(arguments().get("PRIORITY"))) > 5)
+    if (newPriority < 1 || newPriority > 5)
+    {
+        ERROR("invalid priority level `" << arguments().get("PRIORITY") << "'");
+        return InvalidArgument;
+    }
+    
+    if (result != ProcessClient::Success)
     {
         ERROR("invalid priority level `" << arguments().get("PRIORITY") << "'");
         return InvalidArgument;
     }
 
-    // Loop processes
-    for (ProcessID pid = 0; pid < ProcessClient::MaximumProcesses; pid++)
-    {
-        ProcessClient::Info info;
-
-        ProcessClient::Result result = process.processInfo(pid, info);
-        if (result == ProcessClient::Success 
-            && atoi(arguments().get("PID")) == pid)
-        {
-            switch(priority)
-            {
-                case 1:
-                    info.kernelState.priority = Process::One;
-                    break;
-                case 2:
-                    info.kernelState.priority = Process::Two;
-                    break;
-                case 3:
-                    info.kernelState.priority = Process::Three;
-                    break;
-                case 4:
-                    info.kernelState.priority = Process::Four;
-                    break;
-                case 5:
-                    info.kernelState.priority = Process::Five;
-                    break;
-            }
-            break;
-        }
-    }
+    renicepid(pid, newPriority, 0, 0);
+    printf("Process %d's priority has been successfully changed.\n", pid);
 
     return Success;
 }

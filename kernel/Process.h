@@ -71,15 +71,6 @@ class Process
         Stopped
     };
 
-    enum Priority
-    {
-      One = 1, 
-      Two = 2, 
-      Three = 3, 
-      Four = 4, 
-      Five = 5
-    };
-
   public:
 
     /**
@@ -111,19 +102,19 @@ class Process
      */
     ProcessID getParent() const;
 
-    
     /**
-     * Retrieve our Priority level.
+     * Retrieve our process priority.
      *
-     * @return Process Priority of our process.
+     * @return Priority of our process.
      */
-    Process::Priority getPriority() const;
+    Priority getPriority() const;
 
     /**
-     * Set our Priority level.
+     * Set the new priority for our process.
+     *
+     * @return Result code
      */
-    Priority setPriority(const Priority prio);
-  
+    Result setPriority(int newPriority);
 
     /**
      * Get Wait ID.
@@ -275,7 +266,7 @@ class Process
     /** Current process status. */
     State m_state;
 
-    /** Current priority queue. */
+    /** Current priority */
     Priority m_priority;
 
     /** Waits for exit of this Process. */
